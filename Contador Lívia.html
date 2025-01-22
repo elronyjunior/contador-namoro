@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1 Mês de Namoro</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    }
+    .background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('fotos/background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      z-index: -2;
+    }
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: black;
+      opacity: 0.12;
+      z-index: -1;
+    }
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 3rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    #tempo {
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+    }
+    .carousel img {
+      width: auto;
+      max-height: 400px;
+      margin: 0 auto;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    }
+    #texto-namoro {
+      font-size: 1.25rem;
+      margin-top: 20px;
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <div class="background"></div>
+  <div class="overlay"></div>
+
+  <div class="content text-center">
+    <h1>1 Mês de Namoro</h1>
+    <div id="tempo" class="p-3 bg-dark bg-opacity-50 rounded"></div>
+    
+    <div id="carouselExample" class="carousel slide mb-3" data-bs-ride="carousel">
+      <div class="carousel-inner" id="carousel-inner">
+        <!-- As imagens serão carregadas dinamicamente -->
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <i class="fas fa-chevron-left fa-2x text-light"></i>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <i class="fas fa-chevron-right fa-2x text-light"></i>
+      </button>
+    </div>
+
+    <div id="texto-namoro">
+      <pre>
+        Cada dia ao seu lado é um novo capítulo do nosso amor. Obrigado por esses momentos incríveis que tivemos até agora e espero ter muitos ao seu lado amor ❤️. 
+        Eu te amo muito e adoro estar do seu lado cada segundo e eu espero que um dia, quando eu te fizer a pergunta que vai mudar nossas vidas para sempre, você diga "aceito".
+        Cada gesto, cada olhar e cada sorriso seu é um tesouro que guardo no coração. O tempo ao seu lado passa rápido, mas as memórias que criamos serão eternas. 
+        Você é a razão do meu sorriso, e eu sou grato por tudo o que vivemos. Vamos seguir juntos, lado a lado, vivendo cada momento com amor e felicidade.
+      </pre>
+    </div>
+  </div>
+
+  <script>
+    const dataReferencia = new Date('2024-12-21T21:48:00');
+
+    function calcularTempo() {
+      const dataAtual = new Date();
+      
+      // Calcular meses completos e ajustar dias e horas
+      let anos = dataAtual.getFullYear() - dataReferencia.getFullYear();
+      let meses = dataAtual.getMonth() - dataReferencia.getMonth();
+      if (meses < 0) {
+        anos--;
+        meses += 12;
+      }
+
+      const dias = Math.floor((dataAtual - new Date(dataReferencia.getFullYear(), dataReferencia.getMonth() + meses, dataReferencia.getDate())) / (1000 * 60 * 60 * 24));
+      const horas = dataAtual.getHours() - dataReferencia.getHours();
+      const minutos = dataAtual.getMinutes() - dataReferencia.getMinutes();
+
+      // Exibir resultado
+      document.getElementById('tempo').textContent = 
+        `Tempo de namoro: ${anos} anos, ${meses} meses, ${dias} dias, ${horas} horas e ${minutos} minutos.`;
+    }
+
+    function carregarImagens() {
+      const imagens = [
+        '1.jpeg', '2.jpeg', '3.jpeg', '4.jpeg',
+        '5.jpeg', '6.jpeg', '7.jpeg', '8.jpeg'
+      ];
+      const carouselInner = document.getElementById('carousel-inner');
+
+      imagens.forEach((imagem, index) => {
+        const item = document.createElement('div');
+        item.classList.add('carousel-item');
+        if (index === 0) item.classList.add('active');
+        item.innerHTML = `<img src="fotos/${imagem}" onerror="this.src='fotos/default.jpeg'" class="d-block" alt="Imagem ${index + 1}">`;
+        carouselInner.appendChild(item);
+      });
+    }
+
+    // Inicializar os dados ao carregar a página
+    calcularTempo();
+    carregarImagens();
+
+    // Atualizar o tempo a cada minuto sem reiniciar o carrossel
+    setInterval(calcularTempo, 60000);
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
